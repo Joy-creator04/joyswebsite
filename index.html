@@ -57,6 +57,28 @@
     .drive-link a:hover {
       background: #218838;
     }
+
+    /* 🎵 Music Control Button */
+    .music-control {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+
+    .music-control button {
+      padding: 10px 20px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .music-control button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
@@ -66,6 +88,17 @@
     <source src="disco.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
+
+  <!-- 🎵 Background Music -->
+  <audio id="bgMusic" autoplay loop>
+    <source src="backgroung-music.mp3" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- 🎛️ Music Controls -->
+  <div class="music-control">
+    <button id="musicToggle">PAUSE</button>
+  </div>
 
   <!-- 📚 Centered Content -->
   <div class="container">
@@ -85,6 +118,21 @@
     </div>
   </div>
 
+  <!-- 🔁 JavaScript for Music Toggle -->
+  <script>
+    const music = document.getElementById("bgMusic");
+    const button = document.getElementById("musicToggle");
+
+    button.addEventListener("click", () => {
+      if (music.paused) {
+        music.play();
+        button.textContent = "PAUSE";
+      } else {
+        music.pause();
+        button.textContent = "RESUME";
+      }
+    });
+  </script>
+
 </body>
 </html>
-
