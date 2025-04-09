@@ -61,7 +61,7 @@
     /* 🎵 Music Control Button */
     .music-control {
       position: fixed;
-      bottom: 20px;
+      bottom: 60px;
       left: 20px;
       z-index: 10;
     }
@@ -79,6 +79,19 @@
     .music-control button:hover {
       background-color: #0056b3;
     }
+
+    /* ⚖️ Footer */
+    footer {
+      position: fixed;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: white;
+      font-size: 14px;
+      z-index: 10;
+      text-shadow: 1px 1px 2px #000;
+    }
   </style>
 </head>
 <body>
@@ -91,7 +104,7 @@
 
   <!-- 🎵 Background Music -->
   <audio id="bgMusic" autoplay loop>
-    <source src="backgroung-music.mp3" type="audio/mpeg" />
+    <source src="background-music.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
@@ -117,6 +130,11 @@
       <a href="https://docs.google.com/document/d/1oh9_JN6x9Xm_a5Rt33KrT5nJU87IabkGMtwdNLN8zGg/edit?" target="_blank">📄 Week2 - Find ME</a>
     </div>
   </div>
+
+  <!-- ⚖️ Copyright -->
+  <footer>
+    © 2025 Joy Ahmed. All Rights Reserved.
+  </footer>
 
   <!-- 🔁 JavaScript for Music Toggle -->
   <script>
