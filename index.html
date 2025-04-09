@@ -15,7 +15,6 @@
       background: black;
     }
 
-    /* Fireworks canvas */
     canvas#fireworksCanvas {
       position: absolute;
       top: 0;
@@ -23,7 +22,6 @@
       z-index: 0;
     }
 
-    /* Floating stars */
     .star {
       position: absolute;
       width: 2px;
@@ -47,7 +45,6 @@
       }
     }
 
-    /* Earth animation */
     #earth {
       position: fixed;
       bottom: 30px;
@@ -62,7 +59,7 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* Disco ball */
+    /* 🎉 Fixed Disco Ball */
     #discoBall {
       position: absolute;
       width: 80px;
@@ -78,7 +75,6 @@
       100% { transform: translateX(-50%) rotate(360deg); }
     }
 
-    /* Content Container */
     .container {
       position: relative;
       z-index: 2;
@@ -112,19 +108,19 @@
 </head>
 <body>
 
-  <!-- Earth Globe -->
+  <!-- 🌍 Earth Globe -->
   <img id="earth" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Earth_transparent.png/600px-Earth_transparent.png" alt="Rotating Earth" />
 
-  <!-- Disco Ball -->
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Mirrorball.svg/2048px-Mirrorball.svg.png" alt="Disco Ball" id="discoBall">
+  <!-- 🪩 Disco Ball (NOW VISIBLE) -->
+  <img src="https://i.ibb.co/kqwKqjG/disco-ball.png" alt="Disco Ball" id="discoBall">
 
-  <!-- Fireworks -->
+  <!-- 🎆 Fireworks -->
   <canvas id="fireworksCanvas"></canvas>
 
-  <!-- Moving stars container (auto-generated via JS) -->
+  <!-- 🌠 Stars -->
   <div id="stars"></div>
 
-  <!-- Content -->
+  <!-- 📚 Content -->
   <div class="container">
     <h1>Information Management</h1>
     <h2>Joy Ahmed</h2>
@@ -143,7 +139,6 @@
   </div>
 
   <script>
-    // Fireworks
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -197,7 +192,6 @@
 
     animateFireworks();
 
-    // Generate moving stars
     const starsContainer = document.getElementById("stars");
     for (let i = 0; i < 100; i++) {
       const star = document.createElement("div");
