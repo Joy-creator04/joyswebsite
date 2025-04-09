@@ -12,32 +12,10 @@
       overflow: hidden;
       font-family: Arial, sans-serif;
       color: #fff;
-    }
-
-    body {
       background: black;
     }
 
-    .stars {
-      width: 2px;
-      height: 2px;
-      background: white;
-      box-shadow: 
-        100px 200px white,
-        300px 400px white,
-        500px 100px white,
-        700px 300px white,
-        900px 500px white,
-        1100px 700px white,
-        1300px 200px white;
-      animation: twinkle 2s infinite alternate;
-    }
-
-    @keyframes twinkle {
-      from { opacity: 0.3; }
-      to { opacity: 1; }
-    }
-
+    /* Fireworks canvas */
     canvas#fireworksCanvas {
       position: absolute;
       top: 0;
@@ -45,9 +23,65 @@
       z-index: 0;
     }
 
+    /* Floating stars */
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: moveStar linear infinite;
+    }
+
+    @keyframes moveStar {
+      0% {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+
+    /* Earth animation */
+    #earth {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 100px;
+      z-index: 0;
+      animation: rotateEarth 20s linear infinite;
+    }
+
+    @keyframes rotateEarth {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Disco ball */
+    #discoBall {
+      position: absolute;
+      width: 80px;
+      animation: moveDisco 6s infinite linear;
+      z-index: 1;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes moveDisco {
+      0% { transform: translateX(-50%) rotate(0deg); }
+      100% { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    /* Content Container */
     .container {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       background: rgba(0, 0, 0, 0.7);
       padding: 20px;
       margin: 50px auto;
@@ -55,10 +89,6 @@
       border-radius: 10px;
       text-align: center;
       box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
-    }
-
-    h1, h2, h3, p {
-      margin: 10px 0;
     }
 
     .drive-link {
@@ -78,33 +108,23 @@
     .drive-link a:hover {
       background: #218838;
     }
-
-    #discoBall {
-      position: absolute;
-      width: 80px;
-      animation: moveDisco 6s infinite linear;
-      z-index: 0;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    @keyframes moveDisco {
-      0% { transform: translateX(-50%) rotate(0deg); }
-      100% { transform: translateX(-50%) rotate(360deg); }
-    }
   </style>
 </head>
 <body>
+
+  <!-- Earth Globe -->
+  <img id="earth" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Earth_transparent.png/600px-Earth_transparent.png" alt="Rotating Earth" />
+
   <!-- Disco Ball -->
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Mirrorball.svg/2048px-Mirrorball.svg.png" alt="Disco Ball" id="discoBall">
 
-  <!-- Fireworks Canvas -->
+  <!-- Fireworks -->
   <canvas id="fireworksCanvas"></canvas>
 
-  <!-- Star effect -->
-  <div class="stars"></div>
+  <!-- Moving stars container (auto-generated via JS) -->
+  <div id="stars"></div>
 
+  <!-- Content -->
   <div class="container">
     <h1>Information Management</h1>
     <h2>Joy Ahmed</h2>
@@ -123,7 +143,7 @@
   </div>
 
   <script>
-    // Fireworks animation on canvas
+    // Fireworks
     const canvas = document.getElementById('fireworksCanvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -154,7 +174,7 @@
       createFirework(e.clientX, e.clientY);
     });
 
-    function animate() {
+    function animateFireworks() {
       ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -172,10 +192,23 @@
         fireworks[index] = particles.filter(p => p.alpha > 0);
       });
 
-      requestAnimationFrame(animate);
+      requestAnimationFrame(animateFireworks);
     }
 
-    animate();
+    animateFireworks();
+
+    // Generate moving stars
+    const starsContainer = document.getElementById("stars");
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement("div");
+      star.classList.add("star");
+      const size = Math.random() * 3 + 1;
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+      starsContainer.appendChild(star);
+    }
   </script>
 </body>
 </html>
