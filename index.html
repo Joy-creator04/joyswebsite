@@ -32,45 +32,24 @@
     }
 
     @keyframes moveStar {
-      0% {
-        transform: translateY(-10px);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh);
-        opacity: 0;
-      }
+      0% { transform: translateY(-10px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
     }
 
-    #earth {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 100px;
-      z-index: 0;
-      animation: rotateEarth 20s linear infinite;
-    }
-
-    @keyframes rotateEarth {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* 🎉 Fixed Disco Ball */
-    #discoBall {
+    /* 🪩 Animated Disco Ball Video */
+    #discoBallVideo {
       position: absolute;
-      width: 80px;
-      animation: moveDisco 6s infinite linear;
-      z-index: 1;
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
+      width: 120px;
+      border-radius: 50%;
+      z-index: 1;
+      animation: rotateDisco 10s linear infinite;
     }
 
-    @keyframes moveDisco {
+    @keyframes rotateDisco {
       0% { transform: translateX(-50%) rotate(0deg); }
       100% { transform: translateX(-50%) rotate(360deg); }
     }
@@ -108,16 +87,17 @@
 </head>
 <body>
 
-  <!-- 🌍 Earth Globe -->
-  <img id="earth" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Earth_transparent.png/600px-Earth_transparent.png" alt="Rotating Earth" />
-
-  <!-- 🪩 Disco Ball (NOW VISIBLE) -->
-  <img src="disco-ball.png" alt="Disco Ball" id="discoBall">
   <!-- 🎆 Fireworks -->
   <canvas id="fireworksCanvas"></canvas>
 
   <!-- 🌠 Stars -->
   <div id="stars"></div>
+
+  <!-- 🪩 Disco Ball Video -->
+  <video id="discoBallVideo" autoplay muted loop playsinline>
+    <source src="disco.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
   <!-- 📚 Content -->
   <div class="container">
