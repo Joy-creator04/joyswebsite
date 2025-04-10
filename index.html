@@ -102,8 +102,9 @@
     Your browser does not support the video tag.
   </video>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" autoplay loop>
+  <!-- 🎵 Background Music with Multi-Format Support -->
+  <audio id="bgMusic" autoplay loop preload="auto">
+    <source src="background-music.ogg" type="audio/ogg" />
     <source src="background-music.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
