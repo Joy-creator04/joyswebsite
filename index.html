@@ -89,7 +89,6 @@
       text-shadow: 1px 1px 2px #000;
     }
 
-    /* Updated grade-widget styles */
     .grade-widget {
       position: fixed;
       top: 20px;
@@ -143,7 +142,7 @@
     </div>
   </div>
 
-  <!-- 📊 Grade Widget (dynamic) -->
+  <!-- 📊 Grade Widget (JSONP) -->
   <div id="grade-widget" class="grade-widget">
     Loading current grade…
   </div>
@@ -168,23 +167,17 @@
       }
     });
 
-    // Grade fetch logic
-    (function() {
-      // ← Replace with your actual Apps Script Web App URL:https://script.google.com/macros/s/AKfycbyylk4dVAYEwiiK6CjvHw7JPVNb8PFuQKTF0LiThQpvUhVsSxVq6Dwq0PwpM0Q5LoOf/exec
-      const API_URL = 'https://script.google.com/macros/s/AKfycbyylk4dVAYEwiiK6CjvHw7JPVNb8PFuQKTF0LiThQpvUhVsSxVq6Dwq0PwpM0Q5LoOf/exec';
+    // JSONP callback to receive and render the grade
+    function handleGrade(response) {
+      document.getElementById('grade-widget')
+        .textContent = `Current Course Grade: ${response.currentGrade}%`;
+    }
+  </script>
 
-      fetch(API_URL)
-        .then(res => res.json())
-        .then(data => {
-          const el = document.getElementById('grade-widget');
-          el.textContent = `Current Course Grade: ${data.currentGrade}%`;
-        })
-        .catch(err => {
-          console.error('Grade fetch error:', err);
-          document.getElementById('grade-widget')
-            .textContent = 'Grade unavailable';
-        });
-    })();
+  <!-- JSONP loader: replace YOUR_DEPLOY_ID with your script's ID -->
+  <script
+    src="https://script.google.com/macros/s/AKfycby7JF5lvSZQdcCMkCHxW-HSuLBl-IzgmSqAb8upUJ2XLc15nj9XYZsgLUOamIk2wgNu/exec?callback=handleGrade"
+    async>
   </script>
 
 </body>
