@@ -89,16 +89,19 @@
       text-shadow: 1px 1px 2px #000;
     }
 
+    /* Updated grade-widget styles */
     .grade-widget {
       position: fixed;
       top: 20px;
       right: 20px;
       z-index: 9999;
-      border: none;
       background: rgba(0, 0, 0, 0.7);
       color: white;
       font-size: 16px;
       border-radius: 10px;
+      padding: 10px 15px;
+      min-width: 200px;
+      text-align: center;
     }
   </style>
 </head>
@@ -140,25 +143,21 @@
     </div>
   </div>
 
-  <!-- 📊 Grade Widget -->
-  <iframe
-    src="https://script.google.com/macros/s/AKfycbz94ZktjgyF9BfoRgX--ixOBUXM7FravheqYqKuR5Z2b5QcoVxioRuHHhYkGQ8ocTsU3Q/exec"
-    width="320"
-    height="80"
-    class="grade-widget"
-    title="Current Grade">
-  </iframe>
+  <!-- 📊 Grade Widget (dynamic) -->
+  <div id="grade-widget" class="grade-widget">
+    Loading current grade…
+  </div>
 
   <!-- ⚖️ Footer -->
   <footer>
     © 2025 Joy Ahmed. All Rights Reserved.
   </footer>
 
-  <!-- 🔁 JavaScript for Music Toggle -->
+  <!-- 🔁 JavaScript -->
   <script>
+    // Music toggle logic
     const music = document.getElementById("bgMusic");
     const button = document.getElementById("musicToggle");
-
     button.addEventListener("click", () => {
       if (music.paused) {
         music.play();
@@ -168,6 +167,24 @@
         button.textContent = "RESUME";
       }
     });
+
+    // Grade fetch logic
+    (function() {
+      // ← Replace with your actual Apps Script Web App URL:https://script.google.com/macros/s/AKfycbyylk4dVAYEwiiK6CjvHw7JPVNb8PFuQKTF0LiThQpvUhVsSxVq6Dwq0PwpM0Q5LoOf/exec
+      const API_URL = 'https://script.google.com/macros/s/AKfycbyylk4dVAYEwiiK6CjvHw7JPVNb8PFuQKTF0LiThQpvUhVsSxVq6Dwq0PwpM0Q5LoOf/exec';
+
+      fetch(API_URL)
+        .then(res => res.json())
+        .then(data => {
+          const el = document.getElementById('grade-widget');
+          el.textContent = `Current Course Grade: ${data.currentGrade}%`;
+        })
+        .catch(err => {
+          console.error('Grade fetch error:', err);
+          document.getElementById('grade-widget')
+            .textContent = 'Grade unavailable';
+        });
+    })();
   </script>
 
 </body>
