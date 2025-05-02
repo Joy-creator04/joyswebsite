@@ -140,11 +140,14 @@
     <div class="drive-link">
       <a href="https://docs.google.com/document/d/1oh9_JN6x9Xm_a5Rt33KrT5nJU87IabkGMtwdNLN8zGg/edit?" target="_blank">📄 Week2 - Find ME</a>
     </div>
+    <div class="drive-link">
+      <a href="https://drive.google.com/drive/folders/1g4RGgZfGIHHccY8wFDzt9-FmPvxSriNq?usp=drive_link" target="_blank">📄 Week7 - Apps Script</a>
+    </div>
   </div>
 
-  <!-- 📊 Grade Widget (Static) -->
+  <!-- 📊 Grade Widget (JSONP) -->
   <div id="grade-widget" class="grade-widget">
-    Overall Grade: 34.17%
+    Loading current grade…
   </div>
 
   <!-- ⚖️ Footer -->
@@ -166,6 +169,18 @@
         button.textContent = "RESUME";
       }
     });
+
+    // JSONP callback to receive and render the grade
+    function handleGrade(response) {
+      document.getElementById('grade-widget')
+        .textContent = `Overall Grade: ${response.currentGrade}%`;
+    }
+  </script>
+
+  <!-- JSONP loader: replace YOUR_DEPLOY_ID with your script's ID -->
+  <script
+    src="https://script.google.com/macros/s/AKfycby7JF5lvSZQdcCMkCHxW-HSuLBl-IzgmSqAb8upUJ2XLc15nj9XYZsgLUOamIk2wgNu/exec?callback=handleGrade"
+    async>
   </script>
 
 </body>
