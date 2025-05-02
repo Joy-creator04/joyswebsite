@@ -92,7 +92,7 @@
     .grade-widget {
       position: fixed;
       top: 20px;
-      right: 20px;
+      left: 20px;
       z-index: 9999;
       background: rgba(0, 0, 0, 0.7);
       color: white;
@@ -142,9 +142,9 @@
     </div>
   </div>
 
-  <!-- 📊 Grade Widget (JSONP) -->
+  <!-- 📊 Grade Widget (Static) -->
   <div id="grade-widget" class="grade-widget">
-    Loading current grade…
+    Overall Grade: 34.17%
   </div>
 
   <!-- ⚖️ Footer -->
@@ -166,18 +166,6 @@
         button.textContent = "RESUME";
       }
     });
-
-    // JSONP callback to receive and render the grade
-    function handleGrade(response) {
-      document.getElementById('grade-widget')
-        .textContent = `Current Course Grade: ${response.currentGrade}%`;
-    }
-  </script>
-
-  <!-- JSONP loader: replace YOUR_DEPLOY_ID with your script's ID -->
-  <script
-    src="https://script.google.com/macros/s/AKfycby7JF5lvSZQdcCMkCHxW-HSuLBl-IzgmSqAb8upUJ2XLc15nj9XYZsgLUOamIk2wgNu/exec?callback=handleGrade"
-    async>
   </script>
 
 </body>
