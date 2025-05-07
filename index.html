@@ -170,13 +170,36 @@
       }
     });
 
-    // JSONP callback to receive and render the grade
+    // Mood-based grade display
     function handleGrade(response) {
       const widget = document.getElementById('grade-widget');
-      if (response.currentGrade !== undefined) {
-        widget.textContent = `Overall Grade: ${response.currentGrade}%`; // Display grade with % symbol
+      if (typeof response.currentGrade === 'number') {
+        const grade = response.currentGrade;
+        let emoji, message;
+
+        if (grade >= 90) {
+          emoji = '🎉';
+          message = 'Excellent!';
+        } else if (grade >= 75) {
+          emoji = '😊';
+          message = 'Great work!';
+        } else if (grade >= 60) {
+          emoji = '🙂';
+          message = 'Keep it up!';
+        } else {
+          emoji = '⚠️';
+          message = 'Needs improvement.';
+        }
+
+        widget.innerHTML = `
+          <div style="font-size: 1.2em; line-height: 1.3;">
+            <span style="font-size: 2em;">${emoji}</span><br>
+            <strong>${grade}%</strong><br>
+            <small>${message}</small>
+          </div>
+        `;
       } else {
-        widget.textContent = `Grade unavailable`;
+        widget.textContent = 'Grade unavailable';
       }
     }
   </script>
