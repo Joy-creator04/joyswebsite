@@ -174,16 +174,16 @@
     function handleGrade(response) {
       const widget = document.getElementById('grade-widget');
       if (response.currentGrade !== undefined) {
-        widget.textContent = `Overall Grade: ${response.currentGrade}%`;
+        widget.textContent = `Overall Grade: ${response.currentGrade}%`; // Display grade with % symbol
       } else {
         widget.textContent = `Grade unavailable`;
       }
     }
   </script>
 
-  <!-- 🧠 JSONP Loader - NEW Apps Script URL -->
+  <!-- 🧠 JSONP Loader - Link to your deployed Apps Script -->
   <script
-    src="https://script.google.com/macros/s/AKfycbyujkxAZCKb27bgC74bX0z5Ufwtv8Gi0Tm2Ax-ORttfDI3hi5PAviwHjIqOvQgSpYCj/exec?callback=handleGrade"
+    src="https://script.google.com/macros/s/AKfycbzIjfdio620621EJ3vnKJEW9hEkj2OPRm3PFOP0qWf_BNDNnJr8SvtS9X6CCUIhkjeO/exec?callback=handleGrade"
     async>
   </script>
 
