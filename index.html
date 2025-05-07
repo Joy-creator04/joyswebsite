@@ -99,8 +99,11 @@
       font-size: 16px;
       border-radius: 10px;
       padding: 10px 15px;
-      min-width: 200px;
-      text-align: center;
+      min-width: 250px;
+      max-width: 300px;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 90vh;
     }
   </style>
 </head>
@@ -173,15 +176,28 @@
     // JSONP callback to receive and render the grade
     function handleGrade(response) {
       const widget = document.getElementById('grade-widget');
-      if (response.currentGrade !== undefined) {
-        widget.textContent = `Overall Grade: ${response.currentGrade}%`;
-      } else {
-        widget.textContent = `Grade unavailable`;
+      if (!response || response.error) {
+        widget.textContent = 'Grade unavailable';
+        return;
       }
+
+      let html = `<strong>Overall Grade:</strong> ${response.currentGrade}%<br/><br/>`;
+      html += `<strong>Breakdown:</strong><ul style="list-style:none;padding:0;">`;
+
+      response.breakdown.forEach(entry => {
+        html += `
+          <li style="margin-bottom: 10px;">
+            <strong>${entry.name}</strong> (${entry.type})<br/>
+            ${entry.received} / ${entry.max} → <strong>${entry.percent}%</strong>
+          </li>`;
+      });
+
+      html += `</ul>`;
+      widget.innerHTML = html;
     }
   </script>
 
-  <!-- 🧠 JSONP Loader - Updated Script URL -->
+  <!-- 🧠 JSONP Loader - Link to your Apps Script -->
   <script
     src="https://script.google.com/macros/s/AKfycbw1DGmKW36xiEABWNqcAVxvHKBq2U_2IOgjGpfwFfJ8h2aIJyEmSyIA6aoPRhD60ssV/exec?callback=handleGrade"
     async>
