@@ -170,43 +170,20 @@
       }
     });
 
-    // Mood-based grade display
+    // JSONP callback to receive and render the grade
     function handleGrade(response) {
       const widget = document.getElementById('grade-widget');
-      if (typeof response.currentGrade === 'number') {
-        const grade = response.currentGrade;
-        let emoji, message;
-
-        if (grade >= 90) {
-          emoji = '🎉';
-          message = 'Excellent!';
-        } else if (grade >= 75) {
-          emoji = '😊';
-          message = 'Great work!';
-        } else if (grade >= 60) {
-          emoji = '🙂';
-          message = 'Keep it up!';
-        } else {
-          emoji = '⚠️';
-          message = 'Needs improvement.';
-        }
-
-        widget.innerHTML = `
-          <div style="font-size: 1.2em; line-height: 1.3;">
-            <span style="font-size: 2em;">${emoji}</span><br>
-            <strong>${grade}%</strong><br>
-            <small>${message}</small>
-          </div>
-        `;
+      if (response.currentGrade !== undefined) {
+        widget.textContent = `Overall Grade: ${response.currentGrade}%`;
       } else {
-        widget.textContent = 'Grade unavailable';
+        widget.textContent = `Grade unavailable`;
       }
     }
   </script>
 
-  <!-- 🧠 JSONP Loader - Link to your deployed Apps Script -->
+  <!-- 🧠 JSONP Loader - Updated Script URL -->
   <script
-    src="https://script.google.com/macros/s/AKfycby5m1nDAbYVNVeeVqJ9Bp_sD9J1WiDh1xE92P_ejpERj2iYCF_lZZYsczc8IrcJGUGp/exec?callback=handleGrade"
+    src="https://script.google.com/macros/s/AKfycbw1DGmKW36xiEABWNqcAVxvHKBq2U_2IOgjGpfwFfJ8h2aIJyEmSyIA6aoPRhD60ssV/exec?callback=handleGrade"
     async>
   </script>
 
