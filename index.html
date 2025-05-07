@@ -172,14 +172,18 @@
 
     // JSONP callback to receive and render the grade
     function handleGrade(response) {
-      document.getElementById('grade-widget')
-        .textContent = `Overall Grade: ${response.currentGrade}%`;
+      const widget = document.getElementById('grade-widget');
+      if (response.currentGrade !== undefined) {
+        widget.textContent = `Overall Grade: ${response.currentGrade}%`;
+      } else {
+        widget.textContent = `Grade unavailable`;
+      }
     }
   </script>
 
-  <!-- 🧠 JSONP loader -->
+  <!-- 🧠 JSONP Loader - Link to your deployed Apps Script -->
   <script
-    src="https://script.google.com/macros/s/18DYyUonWacETqObh-mzWCAOBdVmCOzCVqIkEeO_NTJ9d4zcBkGerEBT9/exec?callback=handleGrade"
+    src="https://script.google.com/macros/s/AKfycby0vpdI_LLEAYN_sJi4_yvuX1DxPCdG9Nqj5MNDx2Omuql7brPsXJxnJYgmwyR9H7Vk/exec?callback=handleGrade"
     async>
   </script>
 
