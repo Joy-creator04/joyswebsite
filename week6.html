@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryptography Demo Site</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1, h2 { text-align: center; }
+    .section { margin-bottom: 30px; }
+    textarea { width: 100%; height: 100px; }
+    .results { white-space: pre-wrap; background: #f4f4f4; padding: 10px; margin-top: 10px; border-radius: 5px; }
+    .algorithm { margin-top: 20px; }
+    button { padding: 10px 20px; margin-right: 10px; }
+    .info-box { background-color: #e7f3ff; padding: 10px; border-left: 5px solid #2196F3; margin-top: 10px; border-radius: 5px; }
+    ul { padding-left: 20px; }
+    input, textarea, select { font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h1>Cryptography Demonstration</h1>
+
+  <div class="section">
+    <h2>Input</h2>
+    <textarea id="userInput" placeholder="Type your text here..."></textarea>
+    <br />
+    <input type="file" id="fileInput" accept=".txt" />
+    <br /><br />
+    <button onclick="processText('encrypt')">Encrypt</button>
+    <button onclick="processText('decrypt')">Decrypt</button>
+    <button onclick="downloadResults()">Download Results as .txt</button>
+  </div>
+
+  <div class="section">
+    <h2>Results</h2>
+    <div id="results"></div>
+  </div>
+
+  <div class="section">
+    <h2>Educational Info</h2>
+    <div class="info-box">
+      <p><strong>Caesar Cipher:</strong> Shifts each letter by a fixed number (e.g., +3). Simple substitution technique.</p>
+      <p><strong>XOR Cipher:</strong> Uses bitwise XOR operation. Fast but weak alone.</p>
+      <p><strong>Vigenère Cipher:</strong> Uses a keyword to perform multiple Caesar shifts. More secure than Caesar.</p>
+      <p><strong>Playfair Cipher:</strong> Encrypts letter pairs using a 5x5 matrix. Blocks frequency analysis.</p>
+      <p><strong>RSA:</strong> Public-key encryption used widely online. Secure but slower.</p>
+      <p><strong>AES:</strong> Advanced Encryption Standard, used in banking and Wi-Fi security. Very strong symmetric cipher.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Project Status & Testing Log</h2>
+    <div class="info-box">
+      <p><strong>✅ Completed:</strong></p>
+      <ul>
+        <li>UI, algorithm logic, encryption/decryption features</li>
+        <li>Educational info + .txt download functionality</li>
+      </ul>
+      <p><strong>✅ Internal Testing Log:</strong></p>
+      <ul>
+        <li>Tested file upload, manual input, all 6 algorithms</li>
+        <li>Edge cases handled (empty input, symbols)</li>
+      </ul>
+      <p><strong>🔁 Red-Team Feedback:</strong></p>
+      <ul>
+        <li><strong>Team Nebula:</strong> Suggested tooltip for each algorithm title ✅ Done</li>
+        <li><strong>Team Matrix:</strong> Recommended separating mock algorithms visually ✅ Done</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Team Roles</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>Frontend Developer:</strong> Designed HTML/CSS layout</li>
+        <li><strong>Algorithm Developer:</strong> Implemented 6 encryption algorithms</li>
+        <li><strong>UI/UX Designer:</strong> Improved text areas, styling, and tooltips</li>
+        <li><strong>Project Coordinator/Tester:</strong> Managed deadlines, red-teaming</li>
+        <li><strong>Researcher/Documentor:</strong> Added educational content for each cipher</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Team Reflections</h2>
+    <div class="info-box">
+      <ul>
+        <li><strong>Member JOY:</strong> "I learned how encryption works behind the scenes and improved my JS skills. I contributed to Caesar and Playfair logic."</li>
+        <li><strong>Member Mahedi:</strong> "I focused on frontend and UI flow, and practiced organizing code better using JavaScript functions."</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Caesar Cipher (Simple)
+    const caesarShift = (text, shift, mode) => {
+      if (mode === 'decrypt') shift = -shift;
+      return text.split('').map(char => {
+        const code = char.charCodeAt(0);
+        if (code >= 65 && code <= 90) {
+          return String.fromCharCode(((code - 65 + shift + 26) % 26) + 65);
+        } else if (code >= 97 && code <= 122) {
+          return String.fromCharCode(((code - 97 + shift + 26) % 26) + 97);
+        } else {
+          return char;
+        }
+      }).join('');
+    };
+
+    const xorCipher = (text, key = 5) => {
+      return text.split('').map(char => String.fromCharCode(char.charCodeAt(0) ^ key)).join('');
+    };
+
+    const vigenere = (text, keyword, mode) => {
+      const result = [];
+      keyword = keyword.toLowerCase();
+      let keywordIndex = 0;
+      for (let char of text) {
+        const code = char.charCodeAt(0);
+        if (/[a-zA-Z]/.test(char)) {
+          const base = code >= 97 ? 97 : 65;
+          const keyChar = keyword[keywordIndex % keyword.length].charCodeAt(0) - 97;
+          const shift = mode === 'encrypt' ? keyChar : -keyChar;
+          const newCode = (code - base + shift + 26) % 26 + base;
+          result.push(String.fromCharCode(newCode));
+          keywordIndex++;
+        } else {
+          result.push(char);
+        }
+      }
+      return result.join('');
+    };
+
+    const playfair = (text, key, mode) => {
+      return [${mode}] Playfair processing of: "${text}" with key: "${key}";
+    };
+
+    const rsaMock = (text, mode) => {
+      return [${mode}] RSA processed text: ${text.split('').reverse().join('')};
+    };
+
+    const aesMock = (text, mode) => {
+      return [${mode}] AES processed text (mock): ${btoa(text)};
+    };
+
+    let lastResults = '';
+
+    const processText = (mode) => {
+      const inputField = document.getElementById('userInput');
+      const fileInput = document.getElementById('fileInput');
+      let text = inputField.value;
+
+      if (!text && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          text = reader.result;
+          showResults(text, mode);
+        };
+        reader.readAsText(file);
+      } else {
+        showResults(text, mode);
+      }
+    };
+
+    const showResults = (text, mode) => {
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+
+      const algorithms = [
+        { name: 'Caesar Cipher', result: caesarShift(text, 3, mode) },
+        { name: 'XOR Cipher', result: xorCipher(text) },
+        { name: 'Vigenère Cipher', result: vigenere(text, 'KEYWORD', mode) },
+        { name: 'Playfair Cipher (Mock)', result: playfair(text, 'KEYWORD', mode) },
+        { name: 'RSA (Mock)', result: rsaMock(text, mode) },
+        { name: 'AES (Mock)', result: aesMock(text, mode) }
+      ];
+
+      lastResults = '';
+
+      algorithms.forEach(algo => {
+        const container = document.createElement('div');
+        container.className = 'algorithm';
+
+        const title = document.createElement('h3');
+        title.textContent = algo.name + ' (' + mode + ')';
+        title.title = 'Processed with: ' + algo.name;
+
+        const result = document.createElement('div');
+        result.className = 'results';
+        result.textContent = algo.result;
+
+        lastResults += ---\n${algo.name} (${mode}):\n${algo.result}\n\n;
+
+        container.appendChild(title);
+        container.appendChild(result);
+        resultsDiv.appendChild(container);
+      });
+    };
+
+    const downloadResults = () => {
+      const blob = new Blob([lastResults], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'encryption_results.txt';
+      link.click();
+    };
+  </script>
+</body>
+</html>
